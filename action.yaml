@@ -1,6 +1,9 @@
 name: 'K8s NetworkPolicy Diff'
 description: 'Produce a network-connectivity diff between two versions of a your K8s app'
 author: 'shift-left-netconfig project'
+branding:
+  icon: shield
+  color: green
 
 inputs:
   old-path:
