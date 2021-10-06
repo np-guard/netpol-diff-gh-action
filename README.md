@@ -1,7 +1,7 @@
 # Diff cluster connectivity
 
 ## About
-This action produces a semantic diff of the expected connectivity in a given Kubernetes cluster, as dictated by resource-defining YAML files in a GitHub repository. The action will compare the connectivity before and after commits which change the cluster's endpoints (e.g., Deployments) or its NetworkPolicies. The reported diff is particularly useful for reviewing changes to cluster configuration, as their effect on connectivity may be hard to figure out just by looking at textual file diffs.
+This action produces a semantic diff of the expected connectivity in a given Kubernetes cluster, as dictated by resource-defining YAML files in a GitHub repository. The action will compare the connectivity before and after commits which change the cluster's endpoints (e.g., Deployments) or its NetworkPolicies. The reported diff is particularly useful for **reviewing changes** to cluster configuration, as their effect on connectivity may be hard to figure out just by looking at textual file diffs.
 
 An example diff output (in md format):
 |query|src_ns|src_pods|dst_ns|dst_pods|connection|
