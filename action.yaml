@@ -1,0 +1,57 @@
+name: 'K8s NetworkPolicy Diff'
+description: 'Produce a network-connectivity diff between two versions of a your K8s app'
+author: 'shift-left-netconfig project'
+
+inputs:
+  old-path:
+    description: The path in the GitHub Workspace where the old version was checked-out
+    required: true
+  new-path:
+    description: The path in the GitHub Workspace where the new version was checked-out
+    required: true
+  output-format:
+    description: Diff format (either "md", "yaml" or "txt")
+    required: false
+    default: md
+
+outputs:
+  diff-results-artifact:
+    description: The name of the artifact containing the diff report
+    value: ${{ steps.output-results.outputs.diff-results-artifact }}
+  diff-results-file:
+    description: The name of the actual file in the artifact, which contains the diff report
+    value: ${{ steps.output-results.outputs.diff-results-file-name }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Prepare output directory
+      shell: bash
+      run: |
+        mkdir -p ${{ github.workspace }}/netpol-diff-gh-action-output
+        chmod a+rw ${{ github.workspace }}/netpol-diff-gh-action-output
+    - name: Connectivity diff
+      uses: docker://ghcr.io/shift-left-netconfig/nca:1.2.0
+      with:
+        args: >
+          --semantic_diff /github/workspace/${{ inputs.new-path }}
+          --base_np_list  /github/workspace/${{ inputs.old-path }}
+          --pod_list /github/workspace/${{ inputs.new-path }}
+          --base_pod_list /github/workspace/${{ inputs.old-path }}
+          --ns_list /github/workspace/new/${{ inputs.new-path }}
+          --base_ns_list /github/workspace/new/${{ inputs.old-path }}
+          --output_format ${{ inputs.output-format }}
+          --file_out /github/workspace/netpol-diff-gh-action-output/diff_report.${{ inputs.output-format }}
+          --return_0
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: connectivity-diff-results
+        path: ${{ github.workspace }}/netpol-diff-gh-action-output/diff_report.${{ inputs.output-format }}
+    - name: Set outputs and clean
+      id: output-results
+      shell: bash
+      run: |
+        echo "::set-output name=diff-results-artifact::connectivity-diff-results"
+        echo "::set-output name=diff-results-file-name::diff_report.${{ inputs.output-format }}"
+        rm -r ${{ github.workspace }}/netpol-diff-gh-action-output
