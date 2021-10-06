@@ -36,10 +36,10 @@ runs:
         args: >
           --semantic_diff /github/workspace/${{ inputs.new-path }}
           --base_np_list  /github/workspace/${{ inputs.old-path }}
-          --pod_list /github/workspace/${{ inputs.new-path }}
+          --pod_list      /github/workspace/${{ inputs.new-path }}
           --base_pod_list /github/workspace/${{ inputs.old-path }}
-          --ns_list /github/workspace/new/${{ inputs.new-path }}
-          --base_ns_list /github/workspace/new/${{ inputs.old-path }}
+          --ns_list       /github/workspace/${{ inputs.new-path }}
+          --base_ns_list  /github/workspace/${{ inputs.old-path }}
           --output_format ${{ inputs.output-format }}
           --file_out /github/workspace/netpol-diff-gh-action-output/diff_report.${{ inputs.output-format }}
           --return_0
