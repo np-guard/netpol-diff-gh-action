@@ -78,9 +78,9 @@ jobs:
       with:
         name: ${{ steps.diff-versions.outputs.diff-results-artifact }}
     - name: comment PR
-      uses: machine-learning-apps/pr-comment@1.0.0
+      run: |
+        cd new
+        gh pr comment  ${{ github.event.number }} -F ../${{ steps.diff-versions.outputs.diff-results-file }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        path: ${{ steps.diff-versions.outputs.diff-results-file }}
 ```
