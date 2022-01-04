@@ -13,7 +13,7 @@ An example diff output (in md format):
 ||[demo]|[ui]|[demo]|[query-service]|UDP 8080|
 ||[demo]|ip block: 0.0.0.0/0|[demo]|[query-service]|All connections|
 
-This action is part of a wider attempt to provide [shift-left automation for generating and maintaining Kubernetes Network Policies](https://shift-left-netconfig.github.io/).
+This action is part of a wider attempt to provide [shift-left automation for generating and maintaining Kubernetes Network Policies](https://np-guard.github.io/).
 
 ## Inputs
 ### old-path
@@ -46,7 +46,7 @@ jobs:
         ref: ${{ github.base_ref }}
         path: old
     - name: Diff versions
-      uses: shift-left-netconfig/netpol-diff-gh-action@v1
+      uses: np-guard/netpol-diff-gh-action@v1
       with:
         new-path: new
         old-path: old
@@ -70,7 +70,7 @@ jobs:
         path: old
     - name: Diff versions
       id: diff-versions
-      uses: shift-left-netconfig/netpol-diff-gh-action@v1
+      uses: np-guard/netpol-diff-gh-action@v1
       with:
         new-path: new
         old-path: old
