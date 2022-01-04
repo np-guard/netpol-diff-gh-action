@@ -1,6 +1,6 @@
 name: 'K8s NetworkPolicy Diff'
 description: 'Produce a network-connectivity diff between two versions of a your K8s app'
-author: 'shift-left-netconfig project'
+author: 'NP-Guard project'
 branding:
   icon: shield
   color: green
@@ -34,7 +34,7 @@ runs:
         mkdir -p ${{ github.workspace }}/netpol-diff-gh-action-output
         chmod a+rw ${{ github.workspace }}/netpol-diff-gh-action-output
     - name: Connectivity diff
-      uses: docker://ghcr.io/shift-left-netconfig/nca:1.2.0
+      uses: docker://ghcr.io/np-guard/nca:1.2.0
       with:
         args: >
           --semantic_diff /github/workspace/${{ inputs.new-path }}
