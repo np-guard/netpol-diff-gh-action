@@ -46,7 +46,7 @@ jobs:
         ref: ${{ github.base_ref }}
         path: old
     - name: Diff versions
-      uses: np-guard/netpol-diff-gh-action@v1
+      uses: np-guard/netpol-diff-gh-action@v2
       with:
         new-path: new
         old-path: old
@@ -70,7 +70,7 @@ jobs:
         path: old
     - name: Diff versions
       id: diff-versions
-      uses: np-guard/netpol-diff-gh-action@v1
+      uses: np-guard/netpol-diff-gh-action@v2
       with:
         new-path: new
         old-path: old
